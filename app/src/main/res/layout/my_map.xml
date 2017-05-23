@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        tools:context="com.example.winlab3.mapp.MapsActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tilText" />
+
+    <EditText
+        android:id="@+id/fraText"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Fra"
+        android:inputType="textPersonName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/searchbutton" />
+
+    <EditText
+        android:id="@+id/tilText"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Til"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/fraText"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/searchbutton" />
+
+    <Button
+        android:id="@+id/searchbutton"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_above="@+id/tilText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Finn rute" />
+
+    <TextView
+        android:id="@+id/wedidit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchbutton"
+        android:layout_toEndOf="@+id/tilText"
+        android:textColor="#000"
+        android:textSize="12dp"/>
+
+</RelativeLayout>
