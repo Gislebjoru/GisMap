@@ -51,7 +51,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -106,12 +105,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                     mMap.addPolyline(polylineOption);
                                                 }
                                             } else {
-                                                // Do something
+                                                System.out.println("Direction not ok");
                                             }
                                         }
                                         @Override
                                         public void onDirectionFailure(Throwable t) {
-                                            // Do something
+                                            System.out.println("Directionfailure");
                                         }
                                     });
 
