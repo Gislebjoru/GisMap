@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -65,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //når knapp trykkes
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //sjekker at myFra og myTil ikke er tomme slik at appen ikke krasjer om felt er tomme
                 if(myFra !="" && myTil !=""){
 
                     //set myFra og myTil til inhold i editTexts
@@ -84,9 +87,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //legg til markers på start og sluttpunkt
                             mMap.addMarker(new MarkerOptions().position(fra).title("Start"));
                             mMap.addMarker(new MarkerOptions().position(til).title("Slutt"));
-                            //
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(fra));
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fra,15));
+                            //flytter kamera og zoom slik at det alltid inkluderer begge markers
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            builder.include(fra);
+                            builder.include(til);
+                            LatLngBounds bounds = builder.build();
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
 
                             //bruker GoogleDirection med serverkey, definerer innhold og hva vi ønsker å gjøre
                             GoogleDirection.withServerKey("AIzaSyDgMuCPcbDVRdkvY6_W9VNkij4RDRZPYOE")
@@ -129,11 +135,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //catch exceptions
                         } catch (IOException ex) {
                             System.out.println(ex);
+                            //catcher om søkefelt er tomme og toaster
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println(e);
+                            Toast.makeText(MapsActivity.this, "Søkefelt kan ikke være tomme", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                    //søkefeltene er tomme
+                        //søkefeltene er tomme
                         System.out.println("sokefelt er tomme");
                     }
                 }
